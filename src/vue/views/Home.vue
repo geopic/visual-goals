@@ -7,7 +7,11 @@
           <label for="goal-name">
             <h1>1. Define a goal</h1>
           </label>
-          <input type="text" id="goal-name" />
+          <input
+            type="text"
+            id="goal-name"
+            placeholder="Describe your goal here..."
+          />
         </div>
         <div class="form-section">
           <label for="goal-start-date">
@@ -71,6 +75,37 @@ export default class Home extends Vue {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-bottom: 10px;
+
+      label {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10px 0px;
+        margin-bottom: 10px;
+        text-align: center;
+        width: 100%;
+      }
+
+      input {
+        font-size: 20px;
+        padding: 10px;
+        width: 100%;
+      }
+
+      button {
+        background-color: lightgreen;
+        border: 3px solid white;
+        cursor: pointer;
+        padding: 10px 20px;
+
+        &:hover {
+          background-color: #6fe96f;
+        }
+
+        &:active {
+          background-color: #42d142;
+          border-color: lightgreen;
+        }
+      }
     }
   }
 }

@@ -42,9 +42,19 @@ h3,
 h4,
 h5,
 h6 {
-  display: inline-block;
   margin: 0px;
-  width: auto;
+}
+
+h1 {
+  font-size: 20px;
+
+  @media all and (min-width: $medquery-min-width-01) {
+    font-size: 22px;
+  }
+
+  @media all and (min-width: $medquery-min-width-02) {
+    font-size: 26px;
+  }
 }
 
 label {

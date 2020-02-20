@@ -114,16 +114,19 @@ export default class App extends Vue {
     }
 
     button {
-      background-color: firebrick;
-      border-color: transparent;
-      color: white;
+      background-color: #ffc7c7;
+      border: 3px solid white;
       cursor: pointer;
       flex: 0 1 30%;
       height: 100%;
 
+      &:hover {
+        background-color: #f5adad;
+      }
+
       &:active {
-        background-color: #851a1a;
-        color: #f0f0f0;
+        background-color: #f59c9c;
+        border-color: lightpink;
       }
     }
 
@@ -138,6 +141,16 @@ export default class App extends Vue {
 
     @media all and (min-width: $medquery-min-width-02) {
       font-size: 18px;
+    }
+
+    @media all and (min-width: $medquery-min-width-04) {
+      #site-credits-and-repo {
+        flex: 0 1 80%;
+      }
+
+      button {
+        flex: 0 1 20%;
+      }
     }
   }
 
