@@ -21,7 +21,9 @@ $medquery-min-width-05: 1860px;
  * Selectors
  */
 html {
+  background-color: #666;
   box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 *,
@@ -40,7 +42,9 @@ h3,
 h4,
 h5,
 h6 {
+  display: inline-block;
   margin: 0px;
+  width: auto;
 }
 
 label {
