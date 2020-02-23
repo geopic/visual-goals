@@ -13,7 +13,9 @@ export default {
    * @returns The data from localStorage.
    */
   loadDataFromLS(): SiteData | undefined {
-    return JSON.parse(localStorage.getItem(props.site.lsEntry) as string);
+    return JSON.parse(
+      localStorage.getItem(props.site.lsEntry) as string
+    );
   },
 
   /**

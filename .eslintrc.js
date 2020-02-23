@@ -28,6 +28,7 @@ module.exports = {
     'constructor-super': 1,
     'curly': 1,
     'dot-notation': 1,
+    'implicit-arrow-linebreak': 'off',
     'indent': 0,
     'linebreak-style': 'off',
     'lines-around-comment': 'off',

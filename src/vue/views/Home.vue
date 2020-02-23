@@ -1,6 +1,10 @@
 <template>
   <div id="home">
-    <template v-if="dataExists"></template>
+    <template v-if="siteDataExists">
+      <h1>Goal name: {{ siteData['goal-name'] }}</h1>
+      <h1>Start date: {{ siteData['goal-start-date'] }}</h1>
+      <h2>End date: {{ siteData['goal-end-date'] }}</h2>
+    </template>
     <template v-else>
       <form @submit.prevent="initData" method="post">
         <div class="form-section">
@@ -9,15 +13,21 @@
           </label>
           <input
             type="text"
+            name="goal-name"
             id="goal-name"
-            placeholder="Describe your goal here..."
+            placeholder="Define your goal here..."
           />
         </div>
         <div class="form-section">
           <label for="goal-start-date">
             <h1>2. Set the starting date</h1>
           </label>
-          <input type="date" id="goal-start-date" :value="today" />
+          <input
+            type="date"
+            name="goal-start-date"
+            id="goal-start-date"
+            :value="today"
+          />
         </div>
         <div class="form-section">
           <label for="goal-end-date">
@@ -25,6 +35,7 @@
           </label>
           <input
             type="date"
+            name="goal-end-date"
             id="goal-end-date"
             :value="defaultEndDate"
             :min="today"
@@ -46,9 +57,14 @@ import { addDays, format } from 'date-fns';
 @Component
 export default class Home extends Vue {
   today = format(new Date(), 'yyyy-MM-dd');
-  defaultEndDate = format(addDays(new Date(this.today), 14), 'yyyy-MM-dd');
+  defaultEndDate = format(
+    addDays(new Date(this.today), 14),
+    'yyyy-MM-dd'
+  );
 
-  get dataExists() {
+  siteData = this.$store.state.siteData || {};
+
+  get siteDataExists() {
     return this.$store.state.dataExists;
   }
 
@@ -60,9 +76,13 @@ export default class Home extends Vue {
     const data: SiteData = {};
     Array.from(targ.querySelectorAll('input[name]')).forEach(input => {
       const inp = input as HTMLInputElement;
+      if (/name|title/i.test(inp.name) && inp.value === '') {
+        inp.value = 'Think of a goal title';
+      }
       data[inp.name] = inp.value;
     });
     this.$store.commit('saveData', data);
+    this.siteData = data;
   }
 }
 </script>
@@ -78,7 +98,8 @@ export default class Home extends Vue {
       margin-bottom: 10px;
 
       label {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
         padding: 10px 0px;
         margin-bottom: 10px;
         text-align: center;
