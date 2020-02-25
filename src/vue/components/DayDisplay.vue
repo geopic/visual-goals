@@ -1,6 +1,10 @@
 <template>
   <div class="day-display">
     <h1>{{ formattedDate }}</h1>
+    <div class="day-display-btns">
+      <button type="button" id="good-btn">Good</button>
+      <button type="button" id="bad-btn">Bad</button>
+    </div>
   </div>
 </template>
 
@@ -16,4 +20,15 @@ export default class DayDisplay extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.day-display {
+  text-align: center;
+
+  .day-display-btns {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 5px;
+  }
+}
+</style>

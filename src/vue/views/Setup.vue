@@ -5,13 +5,23 @@
         <label for="goal-name">
           <h1>1. Define a goal</h1>
         </label>
-        <input type="text" name="goal-name" id="goal-name" placeholder="Define your goal here..." />
+        <input
+          type="text"
+          name="goal-name"
+          id="goal-name"
+          placeholder="Define your goal here..."
+        />
       </div>
       <div class="form-section">
         <label for="goal-start-date">
           <h1>2. Set the starting date</h1>
         </label>
-        <input type="date" name="goal-start-date" id="goal-start-date" :value="today" />
+        <input
+          type="date"
+          name="goal-start-date"
+          id="goal-start-date"
+          :value="today"
+        />
       </div>
       <div class="form-section">
         <label for="goal-end-date">
@@ -57,7 +67,7 @@ export default class Setup extends Vue {
       if (/name|title/i.test(inp.name) && inp.value === '') {
         inp.value = 'Think of a goal title';
       }
-      data[inp.name] = inp.value;
+      data[inp.name] = inp.value.trim();
     });
     utils.saveDataToLS(data);
     this.$router.go(0);

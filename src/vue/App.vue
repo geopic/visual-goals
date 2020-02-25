@@ -13,10 +13,14 @@
       <div id="site-credits-and-repo">
         <div id="site-credits">{{ siteTitle }} &copy; 2020</div>
         <div id="site-github-repo">
-          <a href="https://github.com/geopic/visual-goals">GitHub repository</a>
+          <a href="https://github.com/geopic/visual-goals">
+            GitHub repository</a
+          >
         </div>
       </div>
-      <button type="button" @click="deleteSiteData">Delete site data</button>
+      <button type="button" @click="deleteSiteData">
+        Delete site data
+      </button>
     </footer>
   </div>
 </template>
@@ -99,7 +103,7 @@ export default class App extends Vue {
   }
 
   main {
-    background-color: lightyellow;
+    background-color: #429042;
     border: 1px solid black;
     border-left: 0px;
     border-right: 0px;
