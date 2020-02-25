@@ -24,14 +24,21 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import props from '@/common/props';
+import utils from '@/common/utils';
 
 @Component
 export default class App extends Vue {
   siteTitle = props.site.name;
 
   deleteSiteData() {
-    if (window.confirm('Are you sure you wish to delete all site data?')) {
-      this.$store.commit('deleteData');
+    if (
+      window.confirm(
+        'Are you sure you wish to delete all site data?'
+      ) &&
+      utils.loadDataFromLS()
+    ) {
+      utils.clearDataFromLS();
+      this.$router.go(0);
     }
   }
 }

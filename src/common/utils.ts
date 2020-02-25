@@ -12,10 +12,10 @@ export default {
    * Get data from localStorage.
    * @returns The data from localStorage.
    */
-  loadDataFromLS(): SiteData | undefined {
-    return JSON.parse(
-      localStorage.getItem(props.site.lsEntry) as string
-    );
+  loadDataFromLS(): SiteData | null {
+    return localStorage.getItem(props.site.lsEntry)
+      ? JSON.parse(localStorage.getItem(props.site.lsEntry) as string)
+      : null;
   },
 
   /**
@@ -24,5 +24,12 @@ export default {
    */
   saveDataToLS(data: SiteData) {
     localStorage.setItem(props.site.lsEntry, JSON.stringify(data));
+  },
+
+  /**
+   * Clear all data (related to site) from localStorage.
+   */
+  clearDataFromLS() {
+    localStorage.removeItem(props.site.lsEntry);
   }
 };
