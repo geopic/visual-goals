@@ -4,11 +4,7 @@
       <h1>Goal: {{ siteData['goal-name'] }}</h1>
     </div>
     <div id="home-day-display">
-      <DayDisplay
-        v-for="day of daysBetween"
-        :key="daysBetween.indexOf(day)"
-        :date="day"
-      />
+      <DayDisplay v-for="day of daysBetween" :key="daysBetween.indexOf(day)" :date="day" />
     </div>
   </div>
 </template>
@@ -48,16 +44,18 @@ export default class Home extends Vue {
   }
 
   #home-day-display {
-    background-color: #4e6d4e;
-    border: 1px dotted white;
-    border-bottom: 0px;
-    border-top: 0px;
-    color: #eaeaea;
-    height: 420px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     margin: 0px auto;
-    overflow-y: scroll;
-    padding: 10px 5px;
-    width: 80%;
+  }
+
+  @media all and (min-width: $medquery-min-width-03) {
+    #home-day-display {
+      flex-direction: row;
+    }
   }
 }
 </style>
