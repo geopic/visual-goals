@@ -40,6 +40,7 @@ module.exports = {
     'no-new-wrappers': 1,
     'no-sequences': 0,
     'no-template-curly-in-string': 1,
+    'no-unreachable': 1,
     'no-var': 1,
     'object-shorthand': 0,
     'space-before-function-paren': 0,
