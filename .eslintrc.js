@@ -32,6 +32,7 @@ module.exports = {
     'indent': 0,
     'linebreak-style': 'off',
     'lines-around-comment': 'off',
+    'max-len': 'off',
     'no-cond-assign': 1,
     'no-empty': 1,
     'no-eval': 1,
