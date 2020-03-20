@@ -7,4 +7,11 @@
 /**
  * Site data, imported from and exported to localStorage.
  */
-export type SiteData = { [key: string]: string };
+export type SiteData = {
+  goal: {
+    name: string;
+    startDate: string;
+    endDate: string;
+  };
+  entries: {};
+};

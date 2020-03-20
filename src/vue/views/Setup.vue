@@ -51,24 +51,32 @@ import { addDays, format } from 'date-fns';
 @Component
 export default class Setup extends Vue {
   today = format(new Date(), 'yyyy-MM-dd');
-  defaultEndDate = format(
-    addDays(new Date(this.today), 14),
-    'yyyy-MM-dd'
-  );
+  defaultEndDate = format(addDays(new Date(this.today), 14), 'yyyy-MM-dd');
 
   /**
    * Create data via form submit event.
    */
   initData(e: Event) {
     const targ = e.target as HTMLFormElement;
-    const data: SiteData = {};
+    const data: SiteData = {
+      goal: { name: '', startDate: '', endDate: '' },
+      entries: {}
+    };
+
     Array.from(targ.querySelectorAll('input[name]')).forEach(input => {
       const inp = input as HTMLInputElement;
       if (/name|title/i.test(inp.name) && inp.value === '') {
         inp.value = 'Think of a goal title';
       }
-      data[inp.name] = inp.value.trim();
+      if (/name|title/i.test(inp.name)) {
+        data.goal.name = inp.value.trim();
+      } else if (/start/i.test(inp.name)) {
+        data.goal.startDate = inp.value.trim();
+      } else if (/end/i.test(inp.name)) {
+        data.goal.endDate = inp.value.trim();
+      }
     });
+
     utils.saveDataToLS(data);
     this.$router.go(0);
   }

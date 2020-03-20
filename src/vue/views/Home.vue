@@ -1,15 +1,25 @@
 <template>
   <div id="home">
-    <div id="home-heading" @click="toggleHeadingView">
-      <div id="home-heading-main">
-        <h1>Goal: {{ siteData['goal-name'] }}</h1>
-      </div>
-      <div id="home-heading-amend">
-        <input type="text" />
+    <div id="home-heading">
+      <div id="home-heading-main-amend">
+        <h1 @click="toggleHeadingView" v-if="showGoalName">
+          Goal: {{ siteData.goal.name }}
+        </h1>
+        <input
+          type="text"
+          :value="siteData.goal.name"
+          @keypress="toggleHeadingView"
+          @blur="toggleHeadingView"
+          v-else
+        />
       </div>
     </div>
     <div id="home-day-display">
-      <DayDisplay v-for="day of daysBetween" :key="daysBetween.indexOf(day)" :date="day" />
+      <DayDisplay
+        v-for="day of daysBetween"
+        :key="daysBetween.indexOf(day)"
+        :date="day"
+      />
     </div>
   </div>
 </template>
@@ -19,6 +29,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import utils from '@/common/utils';
 import DayDisplay from '@/vue/components/DayDisplay.vue';
 import { eachDayOfInterval } from 'date-fns';
+import { SiteData } from '../../common/types';
 
 @Component({
   components: {
@@ -26,25 +37,35 @@ import { eachDayOfInterval } from 'date-fns';
   }
 })
 export default class Home extends Vue {
+  showGoalName = true;
   daysBetween: Date[] = [];
   siteData = utils.loadDataFromLS();
 
   created() {
     if (this.siteData) {
       this.daysBetween = eachDayOfInterval({
-        start: new Date(this.siteData['goal-start-date']),
-        end: new Date(this.siteData['goal-end-date'])
+        start: new Date(this.siteData.goal.startDate),
+        end: new Date(this.siteData.goal.endDate)
       });
     }
   }
 
   /**
-   * Toggle between 'main' or 'amend' view for page heading on click.
+   * Toggle between 'main' or 'amend' view for page heading.
    */
-  toggleHeadingView(e: MouseEvent) {
-    const targ = e.target as HTMLElement;
+  toggleHeadingView(e: Event) {
+    if (e.type === 'keypress' && (e as KeyboardEvent).key !== 'Enter') {
+      return;
+    }
 
-    if (/home-heading/i.test(targ.id)) {
+    this.showGoalName = !this.showGoalName;
+
+    // Save new heading from input field
+    if (e.type === 'keypress') {
+      const targ = e.target as HTMLInputElement;
+      const newSiteData = this.siteData as SiteData;
+      newSiteData.goal.name = targ.value;
+      utils.saveDataToLS(newSiteData);
     }
   }
 }
@@ -60,8 +81,10 @@ export default class Home extends Vue {
       padding: 10px 5px;
     }
 
-    &:hover {
-      cursor: pointer;
+    #home-heading-main-amend {
+      h1 {
+        cursor: pointer;
+      }
     }
   }
 

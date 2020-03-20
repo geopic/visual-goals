@@ -9,7 +9,14 @@ import { SiteData } from '@/common/types';
 import utils from '@/common/utils';
 
 describe('utils', () => {
-  const testData: SiteData = { hello: 'world' };
+  const testData: SiteData = {
+    goal: {
+      name: 'Write more tests',
+      startDate: new Date('January 1, 1991').toString(),
+      endDate: new Date('January 31, 1991').toString()
+    },
+    entries: {}
+  };
   afterEach(() => localStorage.clear());
 
   test('loadDataFromLS', () => {

@@ -32,9 +32,7 @@ export default class App extends Vue {
 
   deleteSiteData() {
     if (
-      window.confirm(
-        'Are you sure you wish to delete all site data?'
-      ) &&
+      window.confirm('Are you sure you wish to delete all site data?') &&
       utils.loadDataFromLS()
     ) {
       utils.clearDataFromLS();
