@@ -8,14 +8,26 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 
 /**
- * Variables
+ * Variables, mixins
  */
+
+$header-bg-color: #c2c2ff;
+
 // Media query 'min-width' sizes
 $medquery-min-width-01: 500px;
 $medquery-min-width-02: 750px;
 $medquery-min-width-03: 1020px;
 $medquery-min-width-04: 1400px;
 $medquery-min-width-05: 1860px;
+
+/**
+ * Basic flexbox template for horizontal and vertical centre alignment.
+ */
+@mixin flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
 
 /**
  * Selectors

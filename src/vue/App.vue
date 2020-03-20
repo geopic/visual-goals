@@ -2,9 +2,6 @@
   <div id="app">
     <header>
       <div id="site-title">{{ siteTitle }}</div>
-      <nav>
-        <router-link to="/">Home</router-link>
-      </nav>
     </header>
     <main>
       <router-view />
@@ -55,43 +52,25 @@ export default class App extends Vue {
 
   header {
     align-items: center;
+    background-color: $header-bg-color;
     display: flex;
-    font-size: 22px;
+    font-size: 24px;
     justify-content: space-around;
 
     #site-title {
-      flex: 0 1 60%;
       text-align: center;
     }
 
-    nav {
-      display: none; /** Remove if more pages are needed */
-      flex: 0 1 40%;
-      height: 100%;
-
-      a {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        height: 100%;
-        padding: 0px 10px;
-
-        &:active {
-          background-color: rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-
     @media all and (min-width: $medquery-min-width-01) {
-      font-size: 24px;
-    }
-
-    @media all and (min-width: $medquery-min-width-02) {
       font-size: 26px;
     }
 
-    @media all and (min-width: $medquery-min-width-03) {
+    @media all and (min-width: $medquery-min-width-02) {
       font-size: 28px;
+    }
+
+    @media all and (min-width: $medquery-min-width-03) {
+      font-size: 30px;
     }
   }
 
@@ -150,10 +129,19 @@ export default class App extends Vue {
     }
   }
 
+  @media all and (min-width: $medquery-min-width-01) {
+    grid-template-rows: 55px auto 40px;
+  }
+
+  @media all and (min-width: $medquery-min-width-02) {
+    grid-template-rows: 60px auto 40px;
+  }
+
+  @media all and (min-width: $medquery-min-width-03) {
+    grid-template-rows: 70px auto 40px;
+  }
+
   @media all and (min-width: $medquery-min-width-04) {
-    border: 1px solid black;
-    border-bottom: 0px;
-    border-top: 0px;
     margin: 0px auto;
     width: $medquery-min-width-04;
   }
