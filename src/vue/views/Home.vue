@@ -1,25 +1,20 @@
 <template>
   <div id="home">
     <div id="home-heading">
-      <div id="home-heading-main-amend">
-        <h1 @click="toggleHeadingView" v-if="showGoalName">
-          Goal: {{ siteData.goal.name }}
-        </h1>
+      <div id="home-heading-main-amend" ref="heading">
+        <h1 ref="goal-heading" @click="toggleHeadingView">Goal: {{ siteData.goal.name }}</h1>
         <input
           type="text"
+          class="no-display"
+          ref="goalInput"
           :value="siteData.goal.name"
           @keypress="toggleHeadingView"
           @blur="toggleHeadingView"
-          v-else
         />
       </div>
     </div>
     <div id="home-day-display">
-      <DayDisplay
-        v-for="day of daysBetween"
-        :key="daysBetween.indexOf(day)"
-        :date="day"
-      />
+      <DayDisplay v-for="day of daysBetween" :key="daysBetween.indexOf(day)" :date="day" />
     </div>
   </div>
 </template>
@@ -37,9 +32,9 @@ import { SiteData } from '../../common/types';
   }
 })
 export default class Home extends Vue {
-  showGoalName = true;
   daysBetween: Date[] = [];
   siteData = utils.loadDataFromLS();
+  editingHeader = false;
 
   created() {
     if (this.siteData) {
@@ -54,36 +49,68 @@ export default class Home extends Vue {
    * Toggle between 'main' or 'amend' view for page heading.
    */
   toggleHeadingView(e: Event) {
+    // Only accept 'submit' action via enter key
     if (e.type === 'keypress' && (e as KeyboardEvent).key !== 'Enter') {
       return;
     }
 
-    this.showGoalName = !this.showGoalName;
+    // Avoid losing focus when the user clicks out of the input field w/out 'submit' action
+    if (e.type === 'blur' && !this.editingHeader) {
+      return;
+    }
 
-    // Save new heading from input field
-    if (e.type === 'keypress') {
-      const targ = e.target as HTMLInputElement;
+    this.editingHeader = true;
+
+    Array.from((this.$refs.heading as HTMLElement).children).forEach(child =>
+      child.classList.toggle('no-display')
+    );
+
+    const targInput = this.$refs.goalInput as HTMLInputElement;
+
+    if (e.type === 'click') {
+      // Focus on input field when it is made visible
+      targInput.focus();
+      targInput.select();
+    } else if (e.type === 'keypress') {
+      // Save new heading from input field
       const newSiteData = this.siteData as SiteData;
-      newSiteData.goal.name = targ.value;
+      newSiteData.goal.name = targInput.value;
       utils.saveDataToLS(newSiteData);
+
+      this.editingHeader = false;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.no-display {
+  display: none;
+}
+
 #home {
   #home-heading {
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.2);
-    text-align: center;
-
-    & > * {
-      padding: 10px 5px;
-    }
+    display: flex;
+    height: 50px;
+    justify-content: center;
 
     #home-heading-main-amend {
+      height: 100%;
+
       h1 {
         cursor: pointer;
+        padding: 10px 20px;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      input {
+        font-size: 20px;
+        height: 100%;
       }
     }
   }
