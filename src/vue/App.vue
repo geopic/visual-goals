@@ -57,7 +57,6 @@ export default class App extends Vue {
 
   header {
     align-items: center;
-    background-color: yellow;
     display: flex;
     font-size: 22px;
     justify-content: space-around;
@@ -98,16 +97,8 @@ export default class App extends Vue {
     }
   }
 
-  main {
-    background-color: #429042;
-    border: 1px solid black;
-    border-left: 0px;
-    border-right: 0px;
-  }
-
   footer {
     align-items: stretch;
-    background-color: yellow;
     display: flex;
     font-size: 14px;
     justify-content: space-between;

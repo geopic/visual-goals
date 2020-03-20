@@ -1,7 +1,12 @@
 <template>
   <div id="home">
-    <div id="home-heading">
-      <h1>Goal: {{ siteData['goal-name'] }}</h1>
+    <div id="home-heading" @click="toggleHeadingView">
+      <div id="home-heading-main">
+        <h1>Goal: {{ siteData['goal-name'] }}</h1>
+      </div>
+      <div id="home-heading-amend">
+        <input type="text" />
+      </div>
     </div>
     <div id="home-day-display">
       <DayDisplay v-for="day of daysBetween" :key="daysBetween.indexOf(day)" :date="day" />
@@ -32,15 +37,32 @@ export default class Home extends Vue {
       });
     }
   }
+
+  /**
+   * Toggle between 'main' or 'amend' view for page heading on click.
+   */
+  toggleHeadingView(e: MouseEvent) {
+    const targ = e.target as HTMLElement;
+
+    if (/home-heading/i.test(targ.id)) {
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 #home {
   #home-heading {
-    background-color: limegreen;
-    padding: 10px 5px;
+    background-color: rgba(0, 0, 0, 0.2);
     text-align: center;
+
+    & > * {
+      padding: 10px 5px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   #home-day-display {
